@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Producer.h"
+#include "ProtectedIntQueue.h"
 #include "Gatherer.h"
 
 int get_workers_amount(const char* path, 
@@ -22,6 +23,11 @@ std::vector<Gatherer*> create_gatherers(
                   ProtectedIntQueue &WoodcutterQueue,
                   ProtectedIntQueue &MinerQueue,
                   Inventory &inventory);
+
+int add_resources(const char* path,
+                  ProtectedIntQueue &agricultorQueue,
+                  ProtectedIntQueue &woodcutterQueue,
+                  ProtectedIntQueue &minerQueue);
 
 #endif
                   

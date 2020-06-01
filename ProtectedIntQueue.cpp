@@ -1,3 +1,5 @@
+#include <iostream>
+#include "ClosedQueueException.h"
 #include "ProtectedIntQueue.h"
 
 ProtectedIntQueue::ProtectedIntQueue() : closed(false) {}
@@ -8,15 +10,15 @@ ProtectedIntQueue::~ProtectedIntQueue() {}
 void ProtectedIntQueue::push(int element) {
   std::unique_lock<std::mutex> l(m);
   queue.push(element);
-  l.unlock();
+  l.unlock(); // Minimize mutex contention
   cv.notify_one(); // Un notify por push
 }
 
 int ProtectedIntQueue::pop() {
   std::unique_lock<std::mutex> l(m);
   while(queue.empty()) {
-    if(closed) {
-      // return -1 o exepcion
+    if(isClosed()) {
+      throw ClosedQueueException("La cola esta cerrada");
     }
     cv.wait(l);
   }
@@ -31,6 +33,16 @@ int ProtectedIntQueue::front() {
 }
 
 void ProtectedIntQueue::close() {
+  std::unique_lock<std::mutex> l(m);
   closed = true;
+  cv.notify_all();
+}
+
+bool ProtectedIntQueue::isClosed() {
+  return closed;
+}
+
+bool ProtectedIntQueue::empty() {
+  return queue.empty();
 }
 

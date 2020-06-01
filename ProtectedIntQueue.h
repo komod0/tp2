@@ -24,6 +24,10 @@ public:
   int front();
 
   void close();
+
+  bool isClosed();
+
+  bool empty();
 };
 
 #endif

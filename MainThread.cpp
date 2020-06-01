@@ -72,23 +72,46 @@ std::vector<Gatherer*> create_gatherers(
         Gatherer* agricultor = new Gatherer(AgricultorQueue, inventory);
         gatherers.push_back(agricultor);
         agricultor->start();
-        std::cout << "Cree agricultor\n";
       }
     } else if (it.first == "Leniadores") {
       for (int k = 0; k < it.second; k++) {
         Gatherer* wood = new Gatherer(WoodcutterQueue, inventory);
         gatherers.push_back(wood);
         wood->start();
-        std::cout << "Cree leniador\n";
       }
     } else if (it.first == "Mineros") {
       for (int k = 0; k < it.second; k++) {
         Gatherer* miner = new Gatherer(MinerQueue, inventory);
         gatherers.push_back(miner);
         miner->start();
-        std::cout << "Cree minero\n";
       }
     }
   }
   return gatherers;
+}
+
+int add_resources(const char* path,
+                  ProtectedIntQueue &agricultorQueue,
+                  ProtectedIntQueue &woodcutterQueue,
+                  ProtectedIntQueue &minerQueue) {
+
+  std::ifstream resources(path);
+  if (resources.is_open()) {
+    for (std::string line; std::getline(resources, line); ) {
+      for (auto &it: line) {
+        if (it == 'T') {
+          agricultorQueue.push(WHEAT);
+        } else if (it == 'M') {
+          woodcutterQueue.push(WOOD);
+        } else if (it == 'C') {
+          minerQueue.push(COAL);
+        } else if (it == 'H') {
+          minerQueue.push(IRON);
+        }
+      }
+    }
+  } else {
+    return -1;
+  }
+  return 0;
 }
