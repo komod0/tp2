@@ -14,4 +14,3 @@ Trabajo practico N°1 de Taller de Programación 1(75.42)
 
 Para el diseño del trabajo practico se intento encapsular y separar en lo mayor posible al código dentro de clases, se muestra un diagrama(no exhaustivo de las mismas):
 
-
