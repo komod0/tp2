@@ -24,7 +24,7 @@ void Inventory::add(int resource) {
 bool Inventory::take(std::unordered_map<int, int> &resources) {
   std::unique_lock<std::mutex> l(m);
   while (!contains(resources)) {
-    if (isClosed()) {
+    if (collectors_done) {
       return false;
     }
     cv.wait(l);
@@ -42,11 +42,6 @@ bool Inventory::contains(std::unordered_map<int, int> &resources) {
     }
   }
   return true;
-}
-
-bool Inventory::isClosed() {
-  //std::unique_lock<std::mutex> l(m);
-  return collectors_done;
 }
 
 void Inventory::close() {

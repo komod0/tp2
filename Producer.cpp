@@ -9,9 +9,7 @@ Producer::Producer(Inventory &inventory,
           inventory(inventory),
           benefitPoints(benefitPoints),
           recipe(recipe),
-          producedPoints(points) {
-  
-}
+          producedPoints(points) {}
 
 Producer::~Producer() {
 }

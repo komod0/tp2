@@ -10,14 +10,13 @@ ProtectedIntQueue::~ProtectedIntQueue() {}
 void ProtectedIntQueue::push(int element) {
   std::unique_lock<std::mutex> l(m);
   queue.push(element);
-  l.unlock(); // Minimize mutex contention
   cv.notify_one(); // Un notify por push
 }
 
 int ProtectedIntQueue::pop() {
   std::unique_lock<std::mutex> l(m);
-  while(queue.empty()) {
-    if(isClosed()) {
+  while (queue.empty()) {
+    if (closed) {
       throw ClosedQueueException("La cola esta cerrada");
     }
     cv.wait(l);
@@ -39,10 +38,12 @@ void ProtectedIntQueue::close() {
 }
 
 bool ProtectedIntQueue::isClosed() {
+  std::unique_lock<std::mutex> l(m);
   return closed;
 }
 
 bool ProtectedIntQueue::empty() {
+  std::unique_lock<std::mutex> l(m);
   return queue.empty();
 }
 

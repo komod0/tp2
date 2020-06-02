@@ -20,14 +20,13 @@ public:
 
   bool take(std::unordered_map<int, int> &resources);
 
-  bool contains(std::unordered_map<int, int> &resources);
-
-  bool isClosed();
-
   void close();
 
   void printinv();
 
+private:
+  // Privado porque no es protegido
+  bool contains(std::unordered_map<int, int> &resources);
 };
 
 #endif
