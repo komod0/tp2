@@ -19,10 +19,13 @@ public:
 
   Thread& operator=(Thread&& other);
 
+  // Inicia el hilo
   void start();
 
+  // Metodo que contiene la tarea ser ejecutada por el hilo actual
   virtual void run() = 0;
 
+  // Realiza un join del hilo actual
   void join();
 };
 

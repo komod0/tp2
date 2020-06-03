@@ -24,6 +24,9 @@ public:
 
   ~Producer();
 
+  // Pone en marcha al productor haciendo que tome recursos del inventario
+  // mientras este abierto y los convierta en puntos de beneficio incrementando
+  // benefitPoints
   void run();
 };
 

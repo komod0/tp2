@@ -14,6 +14,9 @@ public:
 
   ~Gatherer();
 
+  // Hace que el recolector tome recursos de la cola correspondiente,duerma 50ms
+  // y deposite el recurso en el inventario mientras la cola no este cerrada o
+  // aun queden elementos
   void run();
 };
 
