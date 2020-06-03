@@ -1,6 +1,6 @@
 # Trabajo Practico N°2
 
-Trabajo practico N°1 de Taller de Programación 1(75.42)
+Trabajo practico N°2 de Taller de Programación 1(75.42)
 
 *Alumno:* Julián Crespo
 
